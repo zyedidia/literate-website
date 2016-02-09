@@ -10,7 +10,7 @@
 <!-- Include Bootstrap -->
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://bootswatch.com/spacelab/bootstrap.min.css">
 
 <!-- Include my css -->
 <link rel="stylesheet" href="css/style.css">

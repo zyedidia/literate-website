@@ -2,8 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Index.php</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<title>Tangler</title>
 <script>
 !function(){var q=null;window.PR_SHOULD_USE_CONTINUATION=!0;
 (function(){function R(a){function d(e){var b=e.charCodeAt(0);if(b!==92)return b;var a=e.charAt(1);return(b=r[a])?b:"0"<=a&&a<="7"?parseInt(e.substring(1),8):a==="u"||a==="x"?parseInt(e.substring(2),16):e.charCodeAt(1)}function g(e){if(e<32)return(e<16?"\\x0":"\\x")+e.toString(16);e=String.fromCharCode(e);return e==="\\"||e==="-"||e==="]"||e==="^"?"\\"+e:e}function b(e){var b=e.substring(1,e.length-1).match(/\\u[\dA-Fa-f]{4}|\\x[\dA-Fa-f]{2}|\\[0-3][0-7]{0,2}|\\[0-7]{1,2}|\\[\S\s]|[^\\]/g),e=[],a=
@@ -48,137 +47,144 @@ a:link,a:visited{color:#00f}.codeblock_name,code,pre.prettyprint{font-family:Mon
 </style>
 </head>
 <body onload="prettyPrint()">
-<h1>Index.php</h1>
-<a name="section1:1"><div class="section"><h4>1. Introduction</h4></a>
-<p>This php file is the first page the user will see when viewing the website.
-We will have three sections in this file:
+<section>
+<h1>Tangler</h1>
+<a name="1:1"><div class="section"><h4>1. Introduction</h4></a>
+<p>This is the source for tangle. This compiles code from a <code>.lit</code> file into runnable code.
+We do this by going through all the codeblocks, and storing them in an associative array.
+Then we apply additions and redefinitions so that the array just contains the code for
+each codeblock (indexed with a string: the codeblock name). Then we find the root codeblocks,
+i.e. the ones that are a filename, and recursively parse all the codeblocks, following each
+link and adding in the code for it.
 </p>
-<ul>
-<li>The jumbotron for the title
-</li>
-<li>What is Literate Programming
-</li>
-<li>What are the features of lit in particular
-</li>
-</ul>
-<p>Here is the structure of the file:
+<p>Here is an overview of the file:
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{index.php <a onclick="show()" href="#section1:1">1</a>}</span>
-<pre class="prettyprint lang-html">
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;Literate&lt;/title&gt;
+<span class="codeblock_name">{<strong>tangler.d</strong> <a href="dsrc/tangler.html#1:1">1</a>}</span>
+<pre class="prettyprint lang-d">
+import std.string;
+import std.stdio;
+import parser;
+import main;
+import util;
 
-        &lt;!-- Include the head php. This brings in jquery, bootstrap, and some custom CSS --&gt;
-        &lt;?php include 'includes/head.php';?&gt;
-        &lt;?php include 'includes/google_analytics.php';?&gt;
-    &lt;/head&gt;
+void tangle(Program p) {
+<span class="nocode pln">    {tangle function, <a href="dsrc/tangler.html#1:3">3</a>}</span>
+}
 
-    &lt;body&gt;
-        &lt;!-- This adds the top navigation bar --&gt;
-        &lt;?php include 'includes/navigation.php';?&gt;
-
-        &lt;div class="container"&gt;
-<span class="nocode pln">            {Jumbotron, <a onclick="show(1)" href="#section1:2">2</a>}</span>
-<span class="nocode pln">            {What is Literate Programming, <a onclick="show(1)" href="#section1:3">3</a>}</span>
-<span class="nocode pln">            {What are the features of lit, <a onclick="show(1)" href="#section1:4">4</a>}</span>
-        &lt;/div&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
+<span class="nocode pln">{writeCode function, <a href="dsrc/tangler.html#1:4">4</a>}</span>
 </pre>
 </div>
 </div>
-<a name="section1:2"><div class="section"><h4 class="noheading">2. </h4></a>
-<p>First we want to add a <code>jumbotron</code> as the title for the page.
+<a name="1:2"><div class="section"><h4>2. Overview</h4></a>
+<p>The <code>tangle</code> function will take a program in, go through all the chapters, sections
+and find all the codeblocks. It will then apply the codeblock with <code>+=</code> and <code>:=</code>.
+Another thing it must do is find the root blocks, that is, the files that need
+to be generated. Starting with those, it will recursively write code to a file using
+the <code>writeCode</code> function.
+</p>
+
+</div>
+<a name="1:3"><div class="section"><h4>3. The Tangle Function</h4></a>
+<p>The tangle function should find the codeblocks, apply the <code>+=</code> and <code>:=</code>, find the
+root codeblocks, and call <code>writeCode</code> from those.
+</p>
+<p>We'll start with these three variables.
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{Jumbotron <a onclick="show()" href="#section1:2">2</a>}</span>
-<pre class="prettyprint lang-html">
-&lt;div class="jumbotron"&gt;
-    &lt;h1&gt;Literate&lt;/h1&gt;
-    &lt;p style="text-align: center;"&gt;A Modern Literate Programming System&lt;/p&gt;
-&lt;/div&gt;
+<span class="codeblock_name">{tangle function <a href="dsrc/tangler.html#1:3">3</a>}</span>
+<pre class="prettyprint lang-d">
+Block[string] rootCodeblocks;
+Block[string] codeblocks;
+
+getCodeblocks(p, codeblocks, rootCodeblocks);
 </pre>
-<p class="seealso">This code is used in section <a onclick="show(1)" href="#section1:1">1</a></p>
+<p class="seealso">See also section <a href="dsrc/tangler.html#1:3">3</a></p>
+<p class="seealso">This code is used in section <a href="dsrc/tangler.html#1:1">1</a></p>
 </div>
-</div>
-<a name="section1:3"><div class="section"><h4 class="noheading">3. </h4></a>
-<p>Next we explain what exactly Literate Programming is.
+<p>Now we check if there are any root codeblocks.
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{What is Literate Programming <a onclick="show()" href="#section1:3">3</a>}</span>
-<pre class="prettyprint lang-html">
-&lt;p&gt;View the Literate &lt;a href="precompiled"&gt;source&lt;/a&gt; for this website!&lt;/p&gt;
-&lt;p&gt;See the &lt;a href="http://github.com/zyedidia/Literate"&gt;Github page&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2&gt;What is Literate Programming?&lt;/h2&gt;
-&lt;p&gt;Literate programming is a style of programming invented by Donald Knuth, where the main idea is
-that a program's source code is made primarily to be read and understood by other people, and
-secondarily to be executed by the computer.&lt;/p&gt;
-
-&lt;p&gt;This frees the programmer from the structure of a program imposed by the computer and means that
-the programmer can develop programs in the order of the flow of their thoughts.&lt;/p&gt;
-
-&lt;p&gt;A Literate program consists of explanation of the code in a natural language such as English, interspersed
-with snippets of code to be executed. This means that Literate programs are very easy to understand and share,
-as all the code is well explained.&lt;/p&gt;
-
-&lt;p&gt;Literate, a tool for literate programming, will allow you to take a literate source file (&lt;code&gt;*.lit&lt;/code&gt;) and
-either &lt;em&gt;tangle&lt;/em&gt; the source file which will create a file with executable code, or &lt;em&gt;weave&lt;/em&gt; the
-source file, which will generate an HTML document to be read as formatted documentation.&lt;/p&gt;
+<span class="codeblock_name">{tangle function <a href="dsrc/tangler.html#1:3">3</a>} +=</span>
+<pre class="prettyprint lang-d">
+if (rootCodeblocks.length == 0) {
+    warn(p.file, 0, "No file codeblocks, not writing any code");
+}
 </pre>
-<p class="seealso">This code is used in section <a onclick="show(1)" href="#section1:1">1</a></p>
+<p class="seealso">See also section <a href="dsrc/tangler.html#1:3">3</a></p>
+<p class="seealso">This code is used in section <a href="dsrc/tangler.html#1:1">1</a></p>
 </div>
-</div>
-<a name="section1:4"><div class="section"><h4 class="noheading">4. </h4></a>
-<p>For the third and final part, we explain what the features of Literate are.
-I use <code>target="_blank"</code> here because I want the link to open in a new tab.
+<p>Finally we go through every root codeblock, and run writeCode on it. We open a file
+(making sure it is in <code>outDir</code>). We get the <code>commentString</code> from the list of commands.
+Then we call <code>writeCode</code>, which will recursively follow the links and generate all
+the code.
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{What are the features of lit <a onclick="show()" href="#section1:4">4</a>}</span>
-<pre class="prettyprint lang-html">
-&lt;h2&gt;Features of this tool&lt;/h2&gt;
-Literate works with any programming language, generates HTML as output (&lt;a href="http://wkhtmltopdf.org"&gt;which can be converted to pdf&lt;/a&gt;),
-and generates readable code. The code that is generated is indented properly and is automatically commented using the titles you have written
-for the code blocks.&lt;br&gt;&lt;br&gt;
-Here is the full list of features:&lt;br&gt;
-&lt;ul&gt;
-    &lt;li&gt;Supports any language including syntax highlighting and pretty printing in HTML&lt;/li&gt;
-    &lt;li&gt;Generates HTML as output&lt;/li&gt;
-    &lt;li&gt;Generates readable code and commented in the target language&lt;/li&gt;
-    &lt;li&gt;Reports syntax errors back from the compiler to the right line in the literate source&lt;/li&gt;
-    &lt;li&gt;Runs fast -- wc.lit compiled for me in 7ms for both code and html output&lt;/li&gt;
-    &lt;li&gt;Markdown based -- very easy to read and write Literate source.&lt;/li&gt;
-    &lt;li&gt;Automatically generates hyperlinks between code sections&lt;/li&gt;
-    &lt;li&gt;Formatted output similar to CWEB&lt;/li&gt;
-    &lt;li&gt;Creates an index with identifiers used (you need to have exuberant or universal ctags installed to use this feature)&lt;/li&gt;
-    &lt;li&gt;Supports TeX equations with &lt;code&gt;$&lt;/code&gt; notation&lt;/li&gt;
-    &lt;li&gt;Compatible with Vim (&lt;a href="https://github.com/zyedidia/literate.vim" target="_blank"&gt;literate.vim&lt;/a&gt;)&lt;/li&gt;
-    &lt;li&gt;Highly customizable&lt;/li&gt;
-&lt;/ul&gt;
+<span class="codeblock_name">{tangle function <a href="dsrc/tangler.html#1:3">3</a>} +=</span>
+<pre class="prettyprint lang-d">
+foreach (b; rootCodeblocks) {
+    string filename = b.name;
+    File f;
+    if (!noOutput)
+        f = File(outDir ~ "/" ~ filename, "w");
 
-You can get started by taking a look at the &lt;a href="manual.php"&gt;manual&lt;/a&gt;.
-In addition, this website is made with Literate, and the source can be read
-&lt;a href="precompiled"&gt;here&lt;/a&gt;.
+    writeCode(codeblocks, b.name, f, filename, "");
+    if (!noOutput)
+        f.close();
+}
 </pre>
-<p class="seealso">This code is used in section <a onclick="show(1)" href="#section1:1">1</a></p>
+<p class="seealso">See also section <a href="dsrc/tangler.html#1:3">3</a></p>
+<p class="seealso">This code is used in section <a href="dsrc/tangler.html#1:1">1</a></p>
 </div>
-
 </div>
-<script>
-    $("#chapter1").hide();
+<a name="1:4"><div class="section"><h4>4. The writeCode Function</h4></a>
+<p>The writeCode function recursively follows the links inside a codeblock and writes
+all the code for a codeblock. It also keeps the leading whitespace to make sure
+indentation in the target file is correct.
+</p>
 
-    function show(chapternum) {
-        $("chapter").each(function(index) {
-            $(this).hide();
-        });
-        $("#chapter" + chapternum).show();
+<div class="codeblock">
+<span class="codeblock_name">{writeCode function <a href="dsrc/tangler.html#1:4">4</a>}</span>
+<pre class="prettyprint lang-d">
+void writeCode(Block[string] codeblocks, string blockName, File file, string filename, string whitespace) {
+    Block block = codeblocks[blockName];
+
+    if (block.commentString != "") {
+        if (!noOutput)
+            file.writeln(whitespace ~ block.commentString.replace("%s", blockName));
     }
-</script>
+
+    foreach (lineObj; block.lines) {
+        string line = lineObj.text;
+        string stripLine = strip(line);
+        if (stripLine.startsWith("@{") &amp;&amp; stripLine.endsWith("}")) {
+            string newWS = leadingWS(line);
+            auto index = stripLine.length - 1;
+            auto newBlockName = stripLine[2..index];
+            if (newBlockName == blockName) {
+                error(lineObj.file, lineObj.lineNum, "{" ~ blockName ~ "} refers to itself");
+                return;
+            }
+            if ((newBlockName in codeblocks) !is null) {
+                writeCode(codeblocks, newBlockName, file, filename, whitespace ~ newWS);
+            } else {
+                error(lineObj.file, lineObj.lineNum, "{" ~ newBlockName ~ "} does not exist");
+            }
+        } else {
+            if (!noOutput)
+                file.writeln(whitespace ~ line);
+        }
+    }
+    if (!noOutput)
+        file.writeln();
+}
+</pre>
+<p class="seealso">This code is used in section <a href="dsrc/tangler.html#1:1">1</a></p>
+</div>
+
+</div>
 </body>

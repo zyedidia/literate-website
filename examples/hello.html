@@ -2,8 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Download.php</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<title>Hello world in C</title>
 <script>
 !function(){var q=null;window.PR_SHOULD_USE_CONTINUATION=!0;
 (function(){function R(a){function d(e){var b=e.charCodeAt(0);if(b!==92)return b;var a=e.charAt(1);return(b=r[a])?b:"0"<=a&&a<="7"?parseInt(e.substring(1),8):a==="u"||a==="x"?parseInt(e.substring(2),16):e.charCodeAt(1)}function g(e){if(e<32)return(e<16?"\\x0":"\\x")+e.toString(16);e=String.fromCharCode(e);return e==="\\"||e==="-"||e==="]"||e==="^"?"\\"+e:e}function b(e){var b=e.substring(1,e.length-1).match(/\\u[\dA-Fa-f]{4}|\\x[\dA-Fa-f]{2}|\\[0-3][0-7]{0,2}|\\[0-7]{1,2}|\\[\S\s]|[^\\]/g),e=[],a=
@@ -48,139 +47,44 @@ a:link,a:visited{color:#00f}.codeblock_name,code,pre.prettyprint{font-family:Mon
 </style>
 </head>
 <body onload="prettyPrint()">
-<h1>Download.php</h1>
-<a name="section1:1"><div class="section"><h4>1. Introduction</h4></a>
-<p>This file holds the HTML for the download page. For the structure, we have a
-big download button at the top which links to the github <code>Download ZIP</code> link,
-followed by installation instructions, and a link to the vim plugin.
+<section>
+<h1>Hello world in C</h1>
+<a name="1:1"><div class="section"><h4>1. Introduction</h4></a>
+<p>This is an example hello world C program.
+We can define codeblocks with <code>---</code>
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{download.php <a onclick="show()" href="#section1:1">1</a>}</span>
-<pre class="prettyprint lang-php">
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;Download Literate&lt;/title&gt;
+<span class="codeblock_name">{<strong>hello.c</strong> <a href="hello.html#1:1">1</a>}</span>
+<pre class="prettyprint">
+<span class="nocode pln">{Includes, <a href="hello.html#1:1">1</a>}</span>
 
-        &lt;!-- Include the head to bring in jquery, bootstrap and custom CSS --&gt;
-        &lt;?php include 'includes/head.php';?&gt;
-
-<span class="nocode pln">        {Small javascript to download the zip, <a onclick="show(1)" href="#section1:2">2</a>}</span>
-
-        &lt;?php include 'includes/google_analytics.php'?&gt;
-    &lt;/head&gt;
-
-    &lt;body&gt;
-        &lt;!-- Include the top navigation bar --&gt;
-        &lt;?php include 'includes/navigation.php';?&gt;
-
-        &lt;div class="container"&gt;
-<span class="nocode pln">            {Main download button, <a onclick="show(1)" href="#section1:2">2</a>}</span>
-<span class="nocode pln">{Installation instructions, <a onclick="show(1)" href="#section1:3">3</a>}</span>
-<span class="nocode pln">            {Installing the Vim plugin, <a onclick="show(1)" href="#section1:4">4</a>}</span>
-        &lt;/div&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</pre>
-</div>
-</div>
-<a name="section1:2"><div class="section"><h4 class="noheading">2. </h4></a>
-<p>We use a Bootstrap primary button for the download button and set the size to
-extra large. We also use <code>"_self"</code> as the target so that the zip downloads in the
-current window (without this a new tab opens for a split second which is
-annoying).
-</p>
-<p>First we define the function the button will call when clicked.
-</p>
-
-<div class="codeblock">
-<span class="codeblock_name">{Small javascript to download the zip <a onclick="show()" href="#section1:2">2</a>}</span>
-<pre class="prettyprint lang-php">
-&lt;script&gt;
-function download() {
-    window.open("https://github.com/zyedidia/Literate/archive/master.zip", "_self");
+int main() {
+<span class="nocode pln">    {Print a string, <a href="hello.html#1:1">1</a>}</span>
+    return 0;
 }
-&lt;/script&gt;
 </pre>
-<p class="seealso">This code is used in section <a onclick="show(1)" href="#section1:1">1</a></p>
 </div>
-<p>Next we add the button.
+<p>Now we can define the <code>Includes</code> codeblock:
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{Main download button <a onclick="show()" href="#section1:2">2</a>}</span>
-<pre class="prettyprint lang-php">
-&lt;div style="text-align: center"&gt;
-    &lt;button class="btn btn-primary btn-lg" onclick="download()"&gt;Download&lt;/button&gt;
-&lt;/div&gt;
+<span class="codeblock_name">{Includes <a href="hello.html#1:1">1</a>}</span>
+<pre class="prettyprint">
+#include &lt;stdio.h&gt;
 </pre>
-<p class="seealso">This code is used in section <a onclick="show(1)" href="#section1:1">1</a></p>
+<p class="seealso">This code is used in section <a href="hello.html#1:1">1</a></p>
 </div>
-</div>
-<a name="section1:3"><div class="section"><h4 class="noheading">3. </h4></a>
-<p>We provide some simple installation instructions for the user.
+<p>Finally, our program needs to print "hello world"
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{Installation instructions <a onclick="show()" href="#section1:3">3</a>}</span>
-<pre class="prettyprint lang-php">
-&lt;h2&gt;Installation&lt;/h2&gt;
-You can view or clone the &lt;a href="https://github.com/zyedidia/Literate" target="_blank"&gt;github repository&lt;/a&gt;.&lt;br&gt;
-Installation is quite simple.&lt;br/&gt;
-&lt;hr&gt;
-
-&lt;h3&gt;Mac&lt;/h3&gt;
-
-&lt;p&gt;On Mac you can use brew to install Literate:&lt;/p&gt;
-&lt;pre&gt;
-$ brew tap zyedidia/literate
-$ brew install --HEAD literate
-&lt;/pre&gt;
-&lt;p&gt;For now, Literate is head only.&lt;/p&gt;
-
-&lt;h3&gt;Building from source&lt;/h3&gt;
-&lt;p&gt;Literate is made with the &lt;a href="http://dlang.org"&gt;D programming language&lt;/a&gt; so you must
-install &lt;a href="dlang.org/download.html"&gt;dmd&lt;/a&gt; (D compiler) and &lt;a href="https://code.dlang.org/download"&gt;dub&lt;/a&gt; (D package manager).
-
-Then you should download the zip or clone the repository and run the following commands:
-
-&lt;pre&gt;
-$ cd Literate
-$ make
-&lt;/pre&gt;
-
-You can find the binary in &lt;code&gt;path/to/Literate/bin&lt;/code&gt; (you may want to add this
-to your path).
+<span class="codeblock_name">{Print a string <a href="hello.html#1:1">1</a>}</span>
+<pre class="prettyprint">
+printf("hello world\n");
 </pre>
-<p class="seealso">This code is used in section <a onclick="show(1)" href="#section1:1">1</a></p>
-</div>
-</div>
-<a name="section1:4"><div class="section"><h4 class="noheading">4. </h4></a>
-<p>Finally, we mention the Vim plugin too.
-</p>
-
-<div class="codeblock">
-<span class="codeblock_name">{Installing the Vim plugin <a onclick="show()" href="#section1:4">4</a>}</span>
-<pre class="prettyprint lang-php">
-&lt;h2&gt;Vim Plugin&lt;/h2&gt;
-In addition, there is also a vim plugin which adds syntax highlighting. You can get it &lt;a href="https://github.com/zyedidia/literate.vim"&gt;here&lt;/a&gt;.
-
-I recommend you install it with Pathogen or Vundle or whichever plugin manager you use.
-See the &lt;a href="manual.php#vim-plugin"&gt;manual&lt;/a&gt; for some extra tips on making Literate work even better with Vim.
-</pre>
-<p class="seealso">This code is used in section <a onclick="show(1)" href="#section1:1">1</a></p>
+<p class="seealso">This code is used in section <a href="hello.html#1:1">1</a></p>
 </div>
 
 </div>
-<script>
-    $("#chapter1").hide();
-
-    function show(chapternum) {
-        $("chapter").each(function(index) {
-            $(this).hide();
-        });
-        $("#chapter" + chapternum).show();
-    }
-</script>
 </body>

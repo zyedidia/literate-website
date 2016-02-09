@@ -21,7 +21,8 @@
             </div>
 
             <!-- What is Literate Programming -->
-            <p>View the Literate <a href="precompiled">source</a> for this website!</p>
+            <p>View the Literate <a href="literate-source">source code</a> Literate!
+            <p>View the Literate <a href="website-source">source code</a> for this website!
             <p>See the <a href="http://github.com/zyedidia/Literate">Github page</a>.</p>
             
             <h2>What is Literate Programming?</h2>

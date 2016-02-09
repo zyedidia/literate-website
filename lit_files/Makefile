@@ -1,8 +1,6 @@
 all:
-	lit *.lit
-	mv index.html page_index.html
+	lit -t *.lit
 	mv *.php ../
-	mv *.html ../precompiled
 
 clean:
 	rm -f *.html *.php
