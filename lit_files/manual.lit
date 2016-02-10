@@ -34,10 +34,10 @@ add or remove a section.
     </head>
 
     <body data-spy="scroll" data-target="#nav-container">
-        <!-- Include the top navigation bar -->
-        <?php include 'includes/navigation.php';?>
-
         <div class="container">
+            <!-- Include the top navigation bar -->
+            <?php include 'includes/navigation.php';?>
+
             <div class="row">
                 <div class="col-sm-10">
                     @{The manual itself}

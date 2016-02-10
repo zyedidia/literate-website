@@ -25,10 +25,10 @@ Here is the structure of the file:
     </head>
 
     <body>
-        <!-- This adds the top navigation bar -->
-        <?php include 'includes/navigation.php';?>
-
         <div class="container">
+            <!-- This adds the top navigation bar -->
+            <?php include 'includes/navigation.php';?>
+
             @{Jumbotron}
             @{What is Literate Programming}
             @{What are the features of lit}
@@ -51,8 +51,8 @@ First we want to add a `jumbotron` as the title for the page.
 Next we explain what exactly Literate Programming is.
 
 --- What is Literate Programming
-<p>View the Literate <a href="literate-source">source code</a> Literate!
-<p>View the Literate <a href="website-source">source code</a> for this website!
+<p>View the literate <a href="literate-source">source code</a> for Literate!
+<p>View the literate <a href="website-source">source code</a> for this website!
 <p>See the <a href="http://github.com/zyedidia/Literate">Github page</a>.</p>
 
 <h2>What is Literate Programming?</h2>

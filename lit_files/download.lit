@@ -23,10 +23,10 @@ followed by installation instructions, and a link to the vim plugin.
     </head>
 
     <body>
-        <!-- Include the top navigation bar -->
-        <?php include 'includes/navigation.php';?>
-
         <div class="container">
+            <!-- Include the top navigation bar -->
+            <?php include 'includes/navigation.php';?>
+
             @{Main download button}
 @{Installation instructions}
             @{Installing the Vim plugin}

@@ -1,0 +1,7 @@
+literate-source/*.html
+website-source/*.html
+!literate-source/index.html
+!website-source/page_index.html
+
+*.php
+!manual_explanation.php
