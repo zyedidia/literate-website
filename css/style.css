@@ -20,6 +20,10 @@ body {
     font-size: 12pt;
 }
 
+table th, table td {
+    padding-left: 3px;
+}
+
 h1 {
     text-align: center;
 }

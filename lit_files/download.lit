@@ -17,8 +17,6 @@ followed by installation instructions, and a link to the vim plugin.
         <!-- Include the head to bring in jquery, bootstrap and custom CSS -->
         <?php include 'includes/head.php';?>
 
-        @{Small javascript to download the zip}
-
         <?php include 'includes/google_analytics.php'?>
     </head>
 
@@ -27,7 +25,6 @@ followed by installation instructions, and a link to the vim plugin.
             <!-- Include the top navigation bar -->
             <?php include 'includes/navigation.php';?>
 
-            @{Main download button}
 @{Installation instructions}
             @{Installing the Vim plugin}
         </div>
@@ -36,52 +33,75 @@ followed by installation instructions, and a link to the vim plugin.
 ---
 
 @s
-We use a Bootstrap primary button for the download button and set the size to
-extra large. We also use `"_self"` as the target so that the zip downloads in the
-current window (without this a new tab opens for a split second which is
-annoying).
-
-First we define the function the button will call when clicked.
-
---- Small javascript to download the zip
-<script>
-function download() {
-    window.open("https://github.com/zyedidia/Literate/archive/master.zip", "_self");
-}
-</script>
----
-
-Next we add the button.
-
---- Main download button
-<div style="text-align: center">
-    <button class="btn btn-primary btn-lg" onclick="download()">Download</button>
-</div>
----
-
-@s
 We provide some simple installation instructions for the user.
 
 --- Installation instructions
 <h2>Installation</h2>
-You can view or clone the <a href="https://github.com/zyedidia/Literate" target="_blank">github repository</a>.<br>
 Installation is quite simple.<br/>
+
+You can install Literate by downloading a binary if a binary is provided for your
+system. Otherwise you can also build from source by downloading the source code
+or cloning the github respository.
 <hr>
 
-<h3>Mac</h3>
+<h3>Prebuilt binaries</h3>
 
-<p>On Mac you can use brew to install Literate:</p>
+@{Download table}
+
+<hr>
+
+<h3>Building from source</h3>
+
+@{Building from source}
+---
+
+@s Download table
+
+Here is the table for all the prebuilt binaries for Literate.
+
+--- Download table
+<table border="1" cellpadding="5" width=185>
+<tr>
+<th>Download</th>
+</tr>
+<tr>
+<td><a href="./binaries/literate-osx.tar.gz" download>Mac OS X</a></td>
+</tr>
+<tr>
+<td><a href="./binaries/literate-linux64.tar.gz" download>64 bit Linux</a></td>
+</tr>
+<tr>
+<td><a href="./binaries/literate-linux32.tar.gz" download>32 bit Linux</a></td>
+</tr>
+<tr>
+<td><a href="./binaries/literate-linux-arm.tar.gz" download>Arm Linux</a></td>
+</tr>
+<tr>
+<td><a href="./binaries/literate.tar.gz" download>Source Code</a></td>
+</tr>
+</table>
+---
+
+@s Building from source
+
+Here are the instructions for building Literate from source.
+
+--- Building from source
+<h4>Mac</h4>
+
+<p>On Mac you can use brew to build Literate from source:</p>
 <pre>
 $ brew tap zyedidia/literate
 $ brew install --HEAD literate
 </pre>
 <p>For now, Literate is head only.</p>
 
-<h3>Building from source</h3>
+<hr>
+
 <p>Literate is made with the <a href="http://dlang.org">D programming language</a> so you must
 install <a href="dlang.org/download.html">dmd</a> (D compiler) and <a href="https://code.dlang.org/download">dub</a> (D package manager).
 
-Then you should download the zip or clone the repository and run the following commands:
+Then you should download the source code or clone the repository and run the following commands:
 
 <pre>
 $ cd Literate
@@ -93,6 +113,7 @@ to your path).
 ---
 
 @s
+
 Finally, we mention the Vim plugin too.
 
 --- Installing the Vim plugin

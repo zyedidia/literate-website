@@ -3,5 +3,7 @@ website-source/*.html
 !literate-source/index.html
 !website-source/page_index.html
 
+binaries/*.tar.gz
+
 *.php
 !manual_explanation.php
