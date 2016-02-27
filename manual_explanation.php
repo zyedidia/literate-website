@@ -23,8 +23,11 @@ specify if you would like only code (tangle) or only html (weave) to be generate
 
 <h2 id="example-program">An Example Program</h2>
 
+For a more complete example (and complex) of Literate, see <code><a href="https://github.com/zyedidia/Literate/blob/master/examples/wc.lit">wc.lit</a></code> which is a literate implementation of the word count program
+found on Unix systems. You can find the woven html <a href="examples/wc.html">here</a>.<br><br>
+
 We'll start out with an example that is fairly simple but shows
-the important features of Literate.
+the important features of Literate. 
 
 <pre>
 @code_type c .c
@@ -61,7 +64,7 @@ printf("\n");
 </pre>
 
 You can read the explanation that follows, or run it on your own machine
-and understand it on your own. This program is the hello_world.lit program in
+and understand it on your own. This program is the hello.lit program in
 the examples directory.
 
 <hr>
@@ -261,6 +264,35 @@ There are several special characters here:
 
 <hr>
 
+<h2 id="books">Writing Literate Books</h2>
+
+<p>Literate also lets you write "Literate books". These are a collection of lit files that are strung
+together as chapters. They can use each others' codeblocks. To create a book, you need a book
+file which specifies which files are included as a sort of table of contents. Here is an example
+book file for the hangman, hello, and word count programs (The example lit files here can be found
+in the <code>Examples/</code> directory in the github repository).</p>
+
+<pre>
+@book
+@title Example Book
+
+This is an example book which puts hangman.lit as 
+chapter 1, hello.lit as chapter 2, and wc.lit as chapter 3.
+
+This section is a short introduction you can include which will be
+added to the table of contents file.
+
+[Hangman](hangman.lit)
+[Hello World](hello.lit)
+[Word Count Program](wc.lit)
+</pre>
+
+<p>When you run lit on this file (<code>$ lit book.lit</code>) a <code>_book</code> directory will
+be generated containing the html files for each chapter, plus a file named <code>Example Book_contents.html</code> (in this case).
+This file will contain an overview of the book, including the explanation you put in the book file.</p>
+
+<hr>
+
 <h2 id="vim-plugin">Using the Vim plugin</h2>
 
 <p>Literate also comes with a Vim plugin to make writing Lit files much easier. You can download it <a href="https://github.com/zyedidia/literate.vim">here</a>.
@@ -356,4 +388,7 @@ See <a href="#compiler-errors">this section</a>.<br><br>
 
 <code>@error_format format</code><br>
 If your compiler is not supported, you can provide an error format string to
-define how Literate should parse the compiler command's output.
+define how Literate should parse the compiler command's output.<br><br>
+
+<code>@book</code>
+Mark the file as a book file.

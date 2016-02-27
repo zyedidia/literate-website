@@ -22,6 +22,8 @@ body {
 
 table th, table td {
     padding-left: 3px;
+    border: 1px solid gray;
+    width: 185px;
 }
 
 h1 {
