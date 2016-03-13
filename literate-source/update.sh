@@ -1,1 +1,1 @@
-lit -odir ~/webapps/literate/literate-source -w dsrc/*.lit
+lit -odir ~/webapps/literate/literate-source -w lit/*.lit

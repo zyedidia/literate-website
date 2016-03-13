@@ -3,25 +3,30 @@
 This Manual aims to cover all the features of Literate. However, you do not need to read it if you don't want to.
 syntax is pretty intuitive and you can figure it out on your own by experimenting with the compiler yourself.
 
-<h2 id="basic-usage">Basic Usage</h2>
+<h2 id="basic-usage">Basic usage</h2>
 <p>Literate is a command line tool which you can use to generate either html, code, or both from a <code>.lit</code> file.
-Once installed, you can use it by typing <code>lit file.lit</code>. There are four extra options you can provide:</p>
-<ul>
-    <li><code>--tangle  -t</code></li>
-    <li><code>--weave   -w</code></li>
-    <li><code>--out-dir -odir DIR</code></li>
-    <li><code>--no-output</code></li>
-    <li><code>--compiler</code></li>
-</ul>
-<p>With <code>--tangle</code> and <code>--weave</code> you can
-specify if you would like only code (tangle) or only html (weave) to be generated. By default both code and html will be generated.</p>
-<p><code>--no-output</code> tells Literate not to create any files, it will only give you errors.</p>
-<p><code>--out-dir=dir</code> can be used to specify where you want Literate to put the output files.</p>
-<p><code>--compiler</code> tells Literate not to ignore the <code>@compiler</code> command, which is used to report errors from the compiler of your language. You can read more about that in the <a href="#compiler-errors">compiler errors</a> section.
+Once installed, you can use it by typing <code>lit file.lit</code>. There many extra options you can provide:</p>
+<pre>
+--tangle     -t         Only compile code files
+
+--weave      -w         Only compile HTML files
+
+--no-output  -no        Do not generate any output files
+
+--out-dir    -odir DIR  Put the generated files in DIR
+
+--compiler   -c         Report compiler errors (needs @compiler to be defined)
+                        (see <a href="#compiler-errors">reporting compiler errors to the correct line</a>)
+
+--linenums   -l    STR  Write line numbers prepended with STR to the output file
+                        (see <a href="#line-directives">Writing line directives</a>)
+
+--version    -v         Show the version number and compiler information
+</pre>
 
 <hr>
 
-<h2 id="example-program">An Example Program</h2>
+<h2 id="example-program">An example program</h2>
 
 For a more complete example (and complex) of Literate, see <code><a href="https://github.com/zyedidia/Literate/blob/master/examples/wc.lit">wc.lit</a></code> which is a literate implementation of the word count program
 found on Unix systems. You can find the woven html <a href="examples/wc.html">here</a>.<br><br>
@@ -30,36 +35,32 @@ We'll start out with an example that is fairly simple but shows
 the important features of Literate. 
 
 <pre>
-@code_type c .c
-@comment_type // %s
-
-@title Hello World
+@title Hello world in C
 
 @s Introduction
-This is a simple `Hello World` program written in C.
 
---- hello_world.c
-#include &lt;stdio.h&gt;
+This is an example hello world C program.
+We can define codeblocks with `---`
+
+--- hello.c
+@{Includes}
 
 int main() {
-    @{Print "hello world"}
-
+    @{Print a string}
     return 0;
 }
 ---
 
-@s
+Now we can define the `Includes` codeblock:
 
-Here we use the `printf` function from stdio to print.
-
---- Print "hello world"
-printf("Hello world");
+--- Includes
+#include &lt;stdio.h&gt;
 ---
 
-We should also make sure to add a newline.
+Finally, our program needs to print "hello world"
 
---- Print "hello world" +=
-printf("\n");
+--- Print a string
+printf("hello world\n");
 ---
 </pre>
 
@@ -69,7 +70,7 @@ the examples directory.
 
 <hr>
 
-<h2 id="start-of-program">The Start of the Program</h2>
+<h2 id="start-of-program">The start of the program</h2>
 <p>A Literate program will generally begin with 3 statements, although they are all optional. First you should set the code and comment type.
 <p>To set the code type use
 <code>@code_type type .extension</code>. This tells Literate what language you will be using. I use <code>c</code> and <code>.c</code> in the example, but for javascript it would be <code>javascript</code> and <code>.js</code>.</p>
@@ -85,7 +86,7 @@ with any amounts of prose and code blocks.</p>
 
 <hr>
 
-<h2 id="prose">Using Markdown</h2>
+<h2 id="prose">Using markdown</h2>
 <p>When writing prose, you may use Markdown and it will be converted to HTML on compilation. So using <code>**word**</code> will make <b>word</b> bold etc...
 You can read a nice description of basic markdown <a href="https://help.github.com/articles/markdown-basics/">here</a> (note that <code>```</code> for 
 denoting large code blocks will not work, just use a Literate code block).</p>
@@ -98,7 +99,7 @@ prose, Literate will replace this with a reference to the code block name and a 
 
 <hr>
 
-<h2 id="math">Writing Math Equations</h2>
+<h2 id="math">Writing math equations</h2>
 
 <p>Literate supports rendering math equations. It uses the <a href="https://khan.github.io/KaTeX/">KaTeX</a> library to render LaTeX
 equations. Just put the equation between <code>$</code>. If you want the equation to be block level (take up an entire row), use
@@ -163,7 +164,7 @@ PDF printer performs the best. Go to <code>file -&gt; print</code>. Change the d
 
 <hr>
 
-<h2 id="change-files">Change Files</h2>
+<h2 id="change-files">Change files</h2>
 
 <p>First, note that <code>@include &lt;file.lit&gt;</code> will include another literate file, as if you had written
 the contents of the included file in the current file.<p>
@@ -264,9 +265,38 @@ There are several special characters here:
 
 <hr>
 
-<h2 id="books">Writing Literate Books</h2>
+<h2 id="line-directives">Writing line directives</h2>
 
-<p>Literate also lets you write "Literate books". These are a collection of lit files that are strung
+If you don't want to deal with the <code>@compiler</code> option and are using a language
+that supports line directives, you can use the <code>--linenums</code> (or <code>-l</code>) option which will make
+Literate output line directives.
+
+Here is an example for a C program:
+
+<pre>
+$ lit -l '#line' hello.lit
+</pre>
+
+The output of this (using the <code>hello.lit</code> program from above) will be:
+<pre>
+#line 20
+#include &lt;stdio.h&gt;
+
+#line 11
+int main() {
+#line 26
+    printf("hello world\n");
+
+#line 13
+    return 0;
+#line 14
+}
+</pre>
+
+
+<h2 id="books">Writing literate "books"</h2>
+
+<p>Literate also lets you write Literate "books". These are a collection of lit files that are strung
 together as chapters. They can use each others' codeblocks. To create a book, you need a book
 file which specifies which files are included as a sort of table of contents. Here is an example
 book file for the hangman, hello, and word count programs (The example lit files here can be found

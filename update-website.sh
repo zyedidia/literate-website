@@ -1,6 +1,6 @@
 cd /home/zbyedidia/Literate
 git pull
-make lit
+make d-files
 
 /home/zbyedidia/webapps/literate/binaries/compile-binaries.sh
 make debug
