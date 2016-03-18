@@ -131,6 +131,27 @@ in the generated source.</p>
 
 <hr>
 
+<h2 id="codeblock-modifiers">Code block modifiers</h2>
+
+There are certain codeblock modifiers which you can add in the codeblock name to change the behavior of Literate when compiling the codeblock.
+One such modifier that we have already seen is the <code>+=</code> modifier, but there are a few others. Here is a short list of the codeblock modifiers and what they do:
+
+<ul>
+<li><code>+=</code>: Adds code to an already defined block
+<li><code>:=</code>: Redefines a codeblock
+<li><code>noWeave</code>: Specifies that the codeblock should not be included in the HTML output (for an example, see the end of <code>weave.lit</code> in the source code for Literate)
+</ul>
+
+To include a codeblock modifier, you must put the name of the codeblock, followed by <code>---</code> followed by the codeblock name:
+
+<pre>
+--- Some code block name --- noWeave
+</pre>
+
+With <code>+=</code> and <code>:=</code> you do not have to include the <code>---</code> but you can.
+
+<hr>
+
 <h2 id="css-customization">Customizing HTML output with CSS</h2>
 
 <p>You may not like what the HTML output from Literate looks like by default. In that case, fear not, you can customize
