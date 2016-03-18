@@ -21,6 +21,9 @@ Once installed, you can use it by typing <code>lit file.lit</code>. There many e
 --linenums   -l    STR  Write line numbers prepended with STR to the output file
                         (see <a href="#line-directives">Writing line directives</a>)
 
+--md-compiler COMPILER  Use COMPILER as the markdown compiler instead of the built-in one
+                        (see <a href="#prose">Using markdown</a>)
+
 --version    -v         Show the version number and compiler information
 </pre>
 
@@ -93,6 +96,20 @@ denoting large code blocks will not work, just use a Literate code block).</p>
 <p>The markdown used by Literate is slightly different than normal markdown: underscores do not do anything, and you can directly inline
 html. If you have to write <code>&lt;</code> and <code>&lt;</code>, you can use <code>\&lt;</code> or <code>&amplt;</code> and the
 equivalent for greater than.</p>
+
+<p>If you'd like, you can use a custom markdown compiler by using the <code>--md-compiler</code> flag. For example if you want to use
+<a href="http://pandoc.org/">pandoc</a> for markdown compilation, you can run literate like so:
+
+<pre>
+$ lit --md-compiler pandoc file.lit
+</pre>
+
+Just make sure that the pandoc command line tool is installed on your machine. Literate just runs the command with the markdown as stdin
+and captures the stdout. This means that if you want to use a certain pandoc option you can:
+
+<pre>
+$ lit --md-compiler 'pandoc -f markdown_strict' file.lit
+</pre>
 
 <p>Another possible command you can use while writing prose is the <code>@{codeblock name}</code> command. If you write this in
 prose, Literate will replace this with a reference to the code block name and a link to the section the code block is in.</p>
