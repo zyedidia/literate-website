@@ -433,7 +433,7 @@ More comments
 @change_end
 </pre>
 
-This is the syntax for a change command. This will include <code>&lt;file&gt;</code>, but will the changes given. The
+This is the syntax for a change command. This will include <code>&lt;file&gt;</code>, but with the changes given. The
 code between <code>@replace</code> and <code>@with</code> will be replaced with <code>@with</code> and <code>@end</code>.<br>
 You can have as many of these <code>@replace ... @with .. @end</code> statements in a change statement as you want.<br><br>
 
