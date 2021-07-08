@@ -285,6 +285,9 @@ that will be used to parse the compiler output. The supported compilers are:</p>
     <li>pyflakes (Python)</li>
     <li>jshint (Javascript)</li>
     <li>dmd (D)</li>
+    <li>rustc (Rust)</li>
+    <li>cargo (Rust)</li>
+    <li>go (Go)</li>
 </ul>
 
 <p>For example, the to define the error_format for <code>clang</code>
@@ -294,11 +297,12 @@ you would add this line to your file:</p>
 @error_format %s:%l:%s:%s: %m
 </pre>
 
-There are several special characters here:
+The available control characters are:
 <ul>
     <li><code>%s</code> means any string of characters that should be ignored</li>
     <li><code>%l</code> means the line number</li>
     <li><code>%m</code> means the error message</li>
+    <li><code>%f</code> means the file name</li>
 </ul>
 
 <hr>
