@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 /* Preprocessor definitions */
-#define OK 1    /* status code for successful run */
+#define OK 0    /* status code for successful run */
 #define usage_error 1    /* status code for improper syntax */
 #define cannot_open_file 2    /* status code for file access error */ 
 #define READ_ONLY 0
